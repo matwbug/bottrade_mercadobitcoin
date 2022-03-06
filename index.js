@@ -39,6 +39,7 @@ async function precoBom(){
    console.log(`====== Informações sobre moeda ${coin} ======
                 RSI => ${parseFloat(rsi.value).toFixed(2)} 
                 PRICE => ${parseFloat(response.ticker.sell).toFixed(2)} ${currency}
+                Intervalo => ${process.env.Time_indicator}
 ============================================`)
     
     //if(rsi.value <= 60 && rsi.value >= 50) return true //forte tendencia de alta
