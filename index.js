@@ -70,11 +70,14 @@ setInterval(async () => {
 },process.env.EXEC_INTERVAL)
 
 const express = require('express')
-const app = express().listen(3000)
+const app = express()
 
 app.get('/', function(req,res){
     console.log('estou rodando!')
 })
 
+app.listen(3000, ()=>{
+    console.log('estou escutando!')
+})
 
 
