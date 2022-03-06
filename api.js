@@ -98,12 +98,6 @@ class MercadoBitcoin{
 }
 
 class smsSender{
-    constructor(cfg){
-        this.config = {
-            SID : cfg.sid,
-            TOKEN: cfg.token
-        }
-    }
     async call(msg){
         try{
             let result = apiSms.messages.create({

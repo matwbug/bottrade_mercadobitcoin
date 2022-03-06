@@ -14,10 +14,7 @@ const tradeApi = new MercadoBitcoinTrade({
     key: process.env.KEY,
     secret: process.env.CHAVEAPI
 })
-const apiSms = new smsSender({
-    sid: 'AC4e162068c2c01c6c924adceda9f3805a',
-    token: '4ffd2bfd4227b2f63d8bbf1ca393762d'
-})
+const apiSms = new smsSender()
 
 async function accountInfo(){
     const data = await tradeApi.getAccountInfo();
@@ -39,10 +36,11 @@ async function getQuantity(coin, price, isBuy){
 async function precoBom(){
     let rsi = await client.getIndicator("rsi", "binance", `${process.env.COIN}/${process.env.CURRENCY}`, process.env.Time_indicator)
     let response = await infoApi.ticker(); 
-    console.log(`====== Informações sobre moeda ${coin} ======
+   console.log(`====== Informações sobre moeda ${coin} ======
                 RSI => ${parseFloat(rsi.value).toFixed(2)} 
                 PRICE => ${parseFloat(response.ticker.sell).toFixed(2)} ${currency}
 ============================================`)
+    
     //if(rsi.value <= 60 && rsi.value >= 50) return true //forte tendencia de alta
     if(rsi.value <= 0 && rsi.value <= 20) return true //forte tendencia de baixa
     return false
@@ -70,4 +68,13 @@ setInterval(async () => {
         console.error(err)
     }
 },process.env.EXEC_INTERVAL)
+
+const express = require('express')
+const app = express().listen(3000)
+
+app.get('/', function(req,res){
+    console.log('estou rodando!')
+})
+
+
 
