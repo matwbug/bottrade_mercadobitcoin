@@ -52,9 +52,7 @@ setInterval(async () => {
         //console.log(`Preço atual: ${response.ticker.sell}\nMaior preço ${response.ticker.high}`);
         if(precoBom()) return;
             let qty = await getQuantity('BRL', response.ticker.sell, true)
-            if(!qty){ return apiSms.call(`${coin} tá num preço muito bom! poe saldo aí pra comprar caralho!`)
-                //fazer pra verificar se o preço realmente for muito vender tudo que tem pra comprar nesse preço
-            }
+            if(!qty) return apiSms.call(`${coin} tá num preço muito bom! poe saldo aí pra comprar caralho!`)
             let buyOrder = await tradeApi.placeBuyOrder(qty, response.ticker.sell)
             console.log(`Sua ordem foi enviada!`, buyOrder)
             if(buyOrder.status == 4){
