@@ -43,7 +43,7 @@ async function precoBom(){
 ============================================`)
     
     //if(rsi.value <= 60 && rsi.value >= 50) return true //forte tendencia de alta
-    if(rsi.value <= 0 && rsi.value <= 20) return true //forte tendencia de baixa
+    if(rsi.value <= 20) return true //forte tendencia de baixa
     return false
 }
 
