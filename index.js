@@ -37,8 +37,12 @@ async function getQuantity(coin, price, isBuy){
 }
 
 async function precoBom(){
-    let rsi = await client.getIndicator("rsi", "binance", `${process.env.COIN}/${process.env.CURRENCY}`, '1h')
-    console.log(`RSI => ${rsi.value}`)
+    let rsi = await client.getIndicator("rsi", "binance", `${process.env.COIN}/${process.env.CURRENCY}`, process.env.Time_indicator)
+    let response = await infoApi.ticker(); 
+    console.log(`====== Informações sobre moeda ${coin} ======
+                RSI => ${parseFloat(rsi.value).toFixed(2)} 
+                PRICE => ${parseFloat(response.ticker.sell).toFixed(2)} ${currency}
+============================================`)
     //if(rsi.value <= 60 && rsi.value >= 50) return true //forte tendencia de alta
     if(rsi.value <= 0 && rsi.value <= 20) return true //forte tendencia de baixa
     return false
@@ -46,11 +50,13 @@ async function precoBom(){
 
 setInterval(async () => {
     try{
-        let response = await infoApi.ticker(); 
+        //let response = await infoApi.ticker(); 
         //console.log(`Preço atual: ${response.ticker.sell}\nMaior preço ${response.ticker.high}`);
         if(precoBom()) return;
             let qty = await getQuantity('BRL', response.ticker.sell, true)
-            if(!qty) apiSms.call(`${coin} tá num preço muito bom! poe saldo aí pra comprar caralho!`)
+            if(!qty){ return apiSms.call(`${coin} tá num preço muito bom! poe saldo aí pra comprar caralho!`)
+                //fazer pra verificar se o preço realmente for muito vender tudo que tem pra comprar nesse preço
+            }
             let buyOrder = await tradeApi.placeBuyOrder(qty, response.ticker.sell)
             console.log(`Sua ordem foi enviada!`, buyOrder)
             if(buyOrder.status == 4){
