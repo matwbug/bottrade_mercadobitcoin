@@ -56,11 +56,10 @@ setInterval(async () => {
             let buyOrder = await tradeApi.placeBuyOrder(qty, response.ticker.sell)
             console.log(`Sua ordem foi enviada!`, buyOrder)
             if(buyOrder.status == 4){
-                apiSms.call(`Compra feita de ${qty}${process.env.coin} no valor de ${response.ticker.sell}`)
                 let priceSell = parseFloat(buyOrder.limit_price * profit).toFixed(8);
                 let sellOrder = await tradeApi.placeSellOrder(buyOrder.quantity - buyOrder.fee, priceSell)
                 console.log('Ordem de venda inserida com sucesso!',sellOrder)
-                apiSms.call(`Ordem de venda enviada com sucesso de ${qty}${process.env.coin} Preço de venda inserido ${priceSell}`)
+                apiSms.call(`Compra feita de ${qty}${process.env.coin} no valor de ${response.ticker.sell}\nOrdem de venda enviada com sucesso de ${qty}${process.env.coin} Preço de venda inserido ${priceSell}`)
             }
     }catch(err){
         console.error(err)
