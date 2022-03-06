@@ -70,13 +70,11 @@ setInterval(async () => {
 },process.env.EXEC_INTERVAL)
 
 const express = require('express')
-const app = express()
+const app = express();
 
-app.get('/', function(req,res){
-    res.send('Olá amigo')
-})
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log('estou escutando!')
 })
 
