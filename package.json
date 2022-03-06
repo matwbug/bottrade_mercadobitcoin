@@ -4,7 +4,7 @@
   "description": "bot pra comprar cryptomoeda e vender com lucro",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index"
   },
   "author": "matw",
   "license": "ISC",
