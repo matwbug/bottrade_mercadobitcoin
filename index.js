@@ -74,6 +74,10 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+app.get('/', (req,res) => {
+    res.send('Olá amigo! :)')
+})
+
 app.listen(PORT, () => {
     console.log('estou escutando!')
 })
