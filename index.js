@@ -73,10 +73,10 @@ const express = require('express')
 const app = express()
 
 app.get('/', function(req,res){
-    console.log('estou rodando!')
+    res.send('Olá amigo')
 })
 
-app.listen(3000, ()=>{
+app.listen(3000, () => {
     console.log('estou escutando!')
 })
 
